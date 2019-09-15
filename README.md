@@ -19,7 +19,7 @@ cd Neptune-TS
 
 ### Installing
 
-Remove '.sample' from config.sample.ts and fill it in.
+Remove 'sample.' from sample.config.ts and fill it in.
 ```ts
 {
 	dir: '/home/USER/path/to/dir', // The path to your root directory (/home/USER/Neptune-TS)
