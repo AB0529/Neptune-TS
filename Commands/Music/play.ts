@@ -141,7 +141,7 @@ class Command extends _Command {
 		// ------------------------------------------------------------------------------------
 		// Queues playlist
 		const playlist = (term: string, m: Message) => {
-			let id = getPlaylistIDReg.exec(term)[0];
+			let id = getPlaylistIDReg.exec(term)[1];
 
 			util.embed(id, m);
 		};
