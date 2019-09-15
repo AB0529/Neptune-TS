@@ -1,5 +1,5 @@
 import { Neptune, Colors, discord, _Queues, Servers, request } from '../index';
-import { Message, VoiceConnection, StreamDispatcher } from 'discord.js';
+import { Message, VoiceConnection, StreamDispatcher, GuildMember, User } from 'discord.js';
 import ytdl from 'ytdl-core';
 
 // Util class with Util functions
@@ -29,6 +29,15 @@ class Util {
 		return await this.msg.channel.send({
 			embed: embed
 		});
+	}
+	// ---------------------------------------------------------------------------
+	// Easy codeblock
+	public async code(c: string, content: string, m?: Message): Promise<Message> {
+		let code = `\`\`\`${c}\n${content}\n\`\`\``;
+
+		// Handle edit
+		if (m) return m.edit(code);
+		return await this.msg.channel.send(code);
 	}
 	// ---------------------------------------------------------------------------
 	// Pretty error handle
@@ -203,6 +212,139 @@ class Util {
 			});
 			// Handle error
 			dispatcher.on('error', (err) => this.error(`Dsipatcher Error`, err));
+		});
+	}
+	// ---------------------------------------------------------------------------
+	// Get user by mention, id, tag, or username
+	public getUsers(args: any): Promise<User> | User {
+		let mention = this.msg.mentions.members.first();
+		let id = this.msg.guild.members.get(args);
+		let tag = this.msg.guild.members.find((m: GuildMember) => m.user.tag == args);
+
+		// Handle args being mention, id, or tag
+		if (mention) return mention.user;
+		else if (id) return id.user;
+		else if (tag) return tag.user;
+
+		// Handle args being username
+		let foundUser: User[] = [];
+		let sep: any[] = [];
+
+		return new Promise(async (res) => {
+			// Check all guild members for match
+			this.msg.guild.members.map((m) => {
+				// If any match push to foundUser
+				if (
+					m.user.username.toLowerCase().startsWith(args.toLowerCase()) ||
+					(m.nickname && m.nickname.toLowerCase().startsWith(args.toLowerCase()))
+				)
+					foundUser.push(m.user);
+			});
+
+			// Nothing found
+			if (foundUser.length <= 0)
+				return this.embed(`:x: | Oopsies, I couldn't find any members for \`${this.parseArgs(args)}\``);
+			else if (foundUser.length === 1)
+				// If only 1 item was found
+				return res(foundUser[0]);
+
+			let listUsers = foundUser.map((u, index) => `${index + 1}) ${u.tag}`);
+
+			// Message collector
+			let mCollector = this.msg.channel.createMessageCollector((m2) => m2.author.id == this.msg.author.id, {
+				time: 3e4,
+				dispose: true
+			});
+			let counter = 0;
+
+			// If over 10 items send pages
+			if (foundUser.length > 10) {
+				// Seperate list into 10ths
+				while (listUsers.length) sep.push(listUsers.splice(0, 10).join('\n'));
+
+				// Send first page
+				let m = await this.code(
+					`css`,
+					`-=-= Too many members, type the number for the correct member! =-=-\n\n${sep[0]}\n\nc) Cancel`
+				);
+
+				new Promise((resolve, reject) => {
+					m.react(`◀`).then(() => m.react(`▶`));
+				}).catch((err) => this.error(`Add Reaction Error`, err));
+
+				// Reaction collector
+				let rCollector = m.createReactionCollector((m2) => m2.users.last().id == this.msg.author.id, {
+					time: 3e4,
+					dispose: true
+				});
+
+				mCollector.on('end', () => m.delete().catch((err) => this.error(`Delete Message Error (1)`, err)));
+				mCollector.on('collect', (_m) => {
+					// Cancel
+					if (_m.content.toLowerCase() == 'c') {
+						mCollector.stop();
+						rCollector.stop();
+						return;
+					}
+					// Make sure input is a number
+					if (!parseInt(_m.content)) {
+						res(foundUser[parseInt(_m.content) - 1]);
+						mCollector.stop();
+						rCollector.stop();
+					}
+				});
+				rCollector.on('collect', (r) => {
+					if (r.emoji.name == '◀' && counter >= 0) {
+						// Left
+						counter--;
+						if (counter == -1) counter = 0;
+						this.code(
+							'css',
+							`-=-= Too many members, type the number for the correct member! =-=-\n\n${sep[
+								counter
+							]}\n\nc) Cancel\n\nPage ${counter + 1}/${sep.length}`,
+							m
+						);
+					} else if (r.emoji.name == '▶' && counter < sep.length - 1) {
+						// Right
+						counter++;
+						this.code(
+							'css',
+							`-=-= Too many members, type the number for the correct member! =-=-\n\n${sep[
+								counter
+							]}\n\nc) Cancel\n\nPage ${counter + 1}/${sep.length}`,
+							m
+						);
+					}
+				});
+			} else {
+				// Send first page
+				let m = await this.code(
+					`css`,
+					`-=-= Too many members, type the number for the correct member! =-=-\n\n${listUsers.join(
+						'\n'
+					)}\n\nc) Cancel`
+				);
+
+				let mCollector = this.msg.channel.createMessageCollector((m2) => m2.author.id == this.msg.author.id, {
+					time: 3e4,
+					dispose: true
+				});
+
+				mCollector.on('end', () => m.delete().catch((err) => this.error(`Delete Message Error (1)`, err)));
+				mCollector.on('collect', (_m) => {
+					// Cancel
+					if (_m.content.toLowerCase() == 'c') {
+						mCollector.stop();
+						return;
+					}
+					// Make sure input is a number
+					if (parseInt(_m.content)) {
+						res(foundUser[parseInt(_m.content) - 1]);
+						mCollector.stop();
+					}
+				});
+			}
 		});
 	}
 	// ---------------------------------------------------------------------------
