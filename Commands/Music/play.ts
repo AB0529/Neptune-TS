@@ -28,7 +28,8 @@ class Command extends _Command {
 		let q = await util.getQueue(msg.guild.id);
 		let flagReg = /(^-d)|( -d)/i;
 		let notFlagReg = /^((?!( -d)|^(-d)).)*$/;
-		
+		let getPlaylistIDReg = /[?&]list=([^#\&\?]+)/;
+
 		// Send list of results and play
 		const search = async (term: string) => {
 			let videos: _Queues = await util.getJSON(util.getAPIUrl('yt_video', [ `search=${term}`, `maxResults=5` ]));
@@ -47,7 +48,9 @@ class Command extends _Command {
 			if (videos.state == 'fail') {
 				m.delete().catch((err) => util.error(`Delete Msg Error (5)`, err));
 				return util.error(`Search error (${videos.status})`, videos.result, false);
-			}
+			} else if (getPlaylistIDReg.test(term))
+				// Handles playlist
+				return playlist(term, m);
 
 			// Format search results
 			formatedVideo = videos.result.map(
@@ -102,6 +105,7 @@ class Command extends _Command {
 				collector.stop();
 			});
 		};
+		// ------------------------------------------------------------------------------------
 		// Play first result
 		const play = async (term: string) => {
 			let videos: _Queues = await util.getJSON(util.getAPIUrl('yt_video', [ `search=${term}`, `maxResults=1` ]));
@@ -111,7 +115,9 @@ class Command extends _Command {
 			if (videos.state == 'fail') {
 				m.delete().catch((err) => util.error(`Delete Msg Error (6)`, err));
 				return util.error(`Search error (${videos.status})`, videos.result, false);
-			}
+			} else if (getPlaylistIDReg.test(term))
+				// Handles playlist
+				return playlist(term, m);
 
 			// Update queue
 			videos.result[0].author = msg.author.id;
@@ -132,7 +138,15 @@ class Command extends _Command {
 				})
 				.then(() => m.delete().catch((err) => util.error(`Delete Msg Error (4)`, err)));
 		};
-		
+		// ------------------------------------------------------------------------------------
+		// Queues playlist
+		const playlist = (term: string, m: Message) => {
+			let id = getPlaylistIDReg.exec(term)[0];
+
+			util.embed(id, m);
+		};
+		// ------------------------------------------------------------------------------------
+
 		// Play queue if in vc
 		if (!args[0] && q.length <= 0)
 			return util.embed(
