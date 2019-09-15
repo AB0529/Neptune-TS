@@ -140,10 +140,28 @@ class Command extends _Command {
 		};
 		// ------------------------------------------------------------------------------------
 		// Queues playlist
-		const playlist = (term: string, m: Message) => {
+		const playlist = async (term: string, m: Message) => {
 			let id = getPlaylistIDReg.exec(term)[1];
+			let videos: _Queues = await util.getJSON(util.getAPIUrl('yt_playlist', [ `id=${id}`, `maxResults=70` ]));
+			let video: _Queues = videos.result;
 
-			util.embed(id, m);
+			// Handle error
+			if (videos.state == 'fail') {
+				m.delete().catch((err) => util.error(`Delete Msg Error (7)`, err));
+				return util.error(`Search error (${videos.status})`, videos.result, false);
+			}
+
+			// Queue videos to playlist
+			for (let i = 0; i < video.length; i++) {
+				video[i].author = msg.author.id;
+				q.push(video[i]);
+				await util.updateQueue(q);
+			}
+
+			util.embed(
+				`<:Selfie:390652489919365131> | Enqueued **${video.length}** videos from playlist! **[${msg.author}]**`,
+				m
+			);
 		};
 		// ------------------------------------------------------------------------------------
 
