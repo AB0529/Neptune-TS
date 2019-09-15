@@ -1,0 +1,23 @@
+{
+	"name": "neptune-ts",
+	"version": "1.0.0",
+	"description": "",
+	"main": "index.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"author": "",
+	"license": "ISC",
+	"dependencies": {
+		"@types/mongoose": "^5.5.17",
+		"@types/node": "^12.7.4",
+		"@types/request": "^2.48.3",
+		"colors": "^1.3.3",
+		"discord.js": "github:discordjs/discord.js",
+		"mongoose": "^5.6.13",
+		"opusscript": "0.0.7",
+		"request": "^2.88.0",
+		"ts-node": "^8.3.0",
+		"ytdl-core": "^0.29.6"
+	}
+}
