@@ -140,12 +140,6 @@ class Command extends _Command {
 		};
 		// ------------------------------------------------------------------------------------
 		// Queues playlist
-<<<<<<< HEAD
-		const playlist = (term: string, m: Message) => {
-			let id = getPlaylistIDReg.exec(term)[0];
-
-			util.embed(id, m);
-=======
 		const playlist = async (term: string, m: Message) => {
 			let id = getPlaylistIDReg.exec(term)[1];
 			let videos: _Queues = await util.getJSON(util.getAPIUrl('yt_playlist', [ `id=${id}`, `maxResults=70` ]));
@@ -168,7 +162,6 @@ class Command extends _Command {
 				`<:Selfie:390652489919365131> | Enqueued **${video.length}** videos from playlist! **[${msg.author}]**`,
 				m
 			);
->>>>>>> playlist
 		};
 		// ------------------------------------------------------------------------------------
 
