@@ -25,7 +25,7 @@ class Neptune extends Client {
 
 		// MongoDB
 		mongoose.connect(
-			`mongodb://${this.config.mogo.user}:${this.config.mongo.password}@localhost/${this.config.mongo.db}`,
+			`mongodb://${this.config.mongo.user}:${this.config.mongo.password}@localhost/${this.config.mongo.db}`,
 			{
 				useNewUrlParser: true,
 				useFindAndModify: false
