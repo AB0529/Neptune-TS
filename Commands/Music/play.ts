@@ -50,7 +50,7 @@ class Command extends _Command {
 				return util.error(`Search error (${videos.status})`, videos.result, false);
 			} else if (getPlaylistIDReg.test(term))
 				// Handles playlist
-				return playlist(term);
+				return playlist(term, m);
 
 			// Format search results
 			formatedVideo = videos.result.map(
@@ -117,7 +117,7 @@ class Command extends _Command {
 				return util.error(`Search error (${videos.status})`, videos.result, false);
 			} else if (getPlaylistIDReg.test(term))
 				// Handles playlist
-				return playlist(term);
+				return playlist(term, m);
 
 			// Update queue
 			videos.result[0].author = msg.author.id;
@@ -140,10 +140,10 @@ class Command extends _Command {
 		};
 		// ------------------------------------------------------------------------------------
 		// Queues playlist
-		const playlist = (term: string) => {
+		const playlist = (term: string, m: Message) => {
 			let id = getPlaylistIDReg.exec(term)[0];
 
-			util.embed(id);
+			util.embed(id, m);
 		};
 		// ------------------------------------------------------------------------------------
 
