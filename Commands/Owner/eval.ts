@@ -43,7 +43,9 @@ class Command extends _Command {
 				evaled = evaled
 					.toString()
 					.replace(new RegExp(`${nep.config.discord.token}`, 'gi'), 'Go away.')
-					.replace(new RegExp(`${nep.config.mongo.password}`, 'gi'), 'No password here xd');
+					.replace(new RegExp(`${nep.config.mongo.password}`, 'gi'), 'Heck off')
+					.replace(new RegExp(`${nep.config.api.key}`, 'gi'), 'Heck off')
+					.replace(new RegExp(`${nep.config.wolke.key}`, 'gi'), 'Heck off');
 			else if (evaled.length > 1500) return msg.channel.send(`Msg too big fix later.`);
 
 			sendEval(args.join(' '), evaled);
