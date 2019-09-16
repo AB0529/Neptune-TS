@@ -47,7 +47,7 @@ class Command extends _Command {
 			// Handle error
 			if (videos.state == 'fail') {
 				m.delete().catch((err) => util.error(`Delete Msg Error (5)`, err));
-				return util.error(`Search error (${videos.status})`, videos.result, false);
+				return util.error(`Search error (search) (${videos.status})`, videos.result, false);
 			} else if (getPlaylistIDReg.test(term))
 				// Handles playlist
 				return playlist(term, m);
@@ -114,7 +114,7 @@ class Command extends _Command {
 			// Handle error
 			if (videos.state == 'fail') {
 				m.delete().catch((err) => util.error(`Delete Msg Error (6)`, err));
-				return util.error(`Search error (${videos.status})`, videos.result, false);
+				return util.error(`Search error (play) (${videos.status})`, videos.result, false);
 			} else if (getPlaylistIDReg.test(term))
 				// Handles playlist
 				return playlist(term, m);
@@ -148,7 +148,7 @@ class Command extends _Command {
 			// Handle error
 			if (videos.state == 'fail') {
 				m.delete().catch((err) => util.error(`Delete Msg Error (7)`, err));
-				return util.error(`Search error (${videos.status})`, videos.result, false);
+				return util.error(`Search error (playlist) (${videos.status})`, videos.result, false);
 			}
 
 			// Queue videos to playlist
