@@ -8,8 +8,10 @@ import Colors from 'colors';
 import _Command from './Classes/Command';
 import discord from 'discord.js';
 import request from 'request';
+import Neko_Client from 'nekos.life';
 
 const nep = new Neptune();
+const neko = new Neko_Client();
 
 // Bot login
 nep.login(nep.config.discord.token);
@@ -75,5 +77,6 @@ export {
 	mongoose,
 	Servers,
 	Model,
-	request
+	request,
+	neko
 };

@@ -7,7 +7,11 @@ const _run = async (msg: Message) => {
 	nep.util = new Util(nep, msg);
 	nep.servers = Servers;
 
-	let _Servers = await nep.util.getData(msg.guild.id);
+	let _Servers = msg.guild
+		? await nep.util.getData(msg.guild.id)
+		: {
+				prefix: nep.config.prefix
+			};
 
 	// Handle multiple prefixes
 	[ nep.config.discord.prefix, `<@${nep.user.id}>`, _Servers.prefix ].forEach(
