@@ -152,7 +152,7 @@ class Command extends _Command {
 			}
 
 			// Queue videos to playlist
-			for (let i = 0; i < video.length; i++) {
+			for (let i = 0; i <= video.length; i++) {
 				video[i].author = msg.author.id;
 				q.push(video[i]);
 				await util.updateQueue(q);
