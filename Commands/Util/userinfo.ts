@@ -26,6 +26,7 @@ class Command extends _Command {
 		let member = msg.guild.members.get(user.id);
 		let joinedGuild = member.joinedTimestamp;
 		let accountCreated = user.createdTimestamp;
+		let id = user.id;
 
 		return util.embed(`Todo: Finish this later`);
 	}

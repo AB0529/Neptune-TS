@@ -15,9 +15,5 @@ export default {
 		// Neptune API (https://github.com/MoistSenpai/Neptune-API)
 		key: 'KEY', // API key
 		url: 'https://localhost/api' // Url to API
-	},
-	wolke: {
-		// (Not currently used for now) https://weeb.sh/
-		key: 'KEY' // Wolke key
 	}
 };

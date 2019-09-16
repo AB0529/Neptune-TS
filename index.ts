@@ -31,6 +31,18 @@ const serversSchema: Schema = new Schema({
 	queue: {
 		type: Array,
 		default: []
+	},
+	nsfw: {
+		type: Array,
+		default: []
+	},
+	roles: {
+		type: Array,
+		default: []
+	},
+	ignore: {
+		type: Array,
+		default: []
 	}
 });
 const Servers = mongoose.model('Servers', serversSchema);

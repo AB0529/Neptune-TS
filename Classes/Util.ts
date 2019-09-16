@@ -99,14 +99,20 @@ class Util {
 					resp = new Servers({
 						guildId: where,
 						prefix: this.nep.prefix,
-						queue: []
+						queue: [],
+						nsfw: [],
+						roles: [],
+						ignore: []
 					});
 				resp.save();
 				// Send data
 				resolve({
 					guildId: resp.get('guildId'),
 					prefix: resp.get('prefix'),
-					queue: resp.get('queue')
+					queue: resp.get('queue'),
+					nsfw: resp.get('nsfw'),
+					roles: resp.get('roles'),
+					ignore: resp.get('ignore')
 				});
 			});
 		});
