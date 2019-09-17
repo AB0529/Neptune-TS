@@ -89,6 +89,16 @@ class Util {
 		});
 	}
 	// ---------------------------------------------------------------------------
+	// Convert link to buffer
+	public toBuffer(url: string) {
+		return new Promise((resolve) => {
+			request({ url, encoding: null }, (err, resp, buffer) => {
+				if (err) return this.error(`Request Buffer Error`, err);
+				resolve(buffer);
+			});
+		});
+	}
+	// ---------------------------------------------------------------------------
 	// Get data from Mongo
 	public getData(where: any): Promise<{ [key: string]: any }> {
 		return new Promise(async (resolve) => {

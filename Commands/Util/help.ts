@@ -51,6 +51,10 @@ class Command extends _Command {
 						`🤷 Misc.`,
 						`- [Support Server](https://discord.gg/R9ykDC3)\n- [Random Cat](http://random.cat/)\n- [Random YouTube Video](https://ytroulette.com/)\n\n*${catFact.fact}*`
 					)
+					.addField(
+						`📄 Notes`,
+						`\`\`\`\nHello, it's been a while but I'm back! I've completly rewritten the bot so many commands are gone. However, the commands are being worked on and will return. If you find any problems or have suggestions join the support server or shoot \`Moist#9999\` a DM!\`\`\``
+					)
 					.setFooter(`Do ${nep.prefix}${this.info.name} <Command or Category>`)
 					.setColor(nep.rColor)
 			});
