@@ -10,8 +10,8 @@ class Command extends _Command {
 
 		super(nep, {
 			name: path.basename(__filename, '.ts'),
-			help: `"Explodes" and image..`,
-			longHelp: `Explodes an image like that funny meme thing.`,
+			help: `"Swrirls" and image..`,
+			longHelp: `Adds a swirl effect to an image.`,
 			usage: [ `• ${cmd} <Mention, User, ID, Tag>`, `• ${cmd} <Direct Link, Attachment>` ],
 			examples: [
 				`Explodes user profile\n• ${cmd} Moist#999`,
@@ -19,7 +19,7 @@ class Command extends _Command {
 			],
 			category: path.dirname(__filename).split(path.sep).pop(),
 			cooldown: 10e3,
-			aliases: [ 'eplode' ],
+			aliases: [],
 			locked: false,
 			allowDM: true
 		});
@@ -32,19 +32,19 @@ class Command extends _Command {
 		// Implode image
 		const explode = async (link: string) => {
 			let bufLink: any = await util.toBuffer(link);
-			let m = await util.embed(`*Exploding...*`);
+			let m = await util.embed(`*Swirling...*`);
 
 			if (link.indexOf('.gif') >= 0)
 				return util.embed(`:x: | The format **GIF is not supported**, choose something else.`);
 
-			gm(bufLink).resize(512, 512).implode(-2).autoOrient().toBuffer(`jpg`, (err, buffer) => {
+			gm(bufLink).resize(512, 512).swirl(200).autoOrient().toBuffer(`jpg`, (err, buffer) => {
 				if (err) return util.error(`Gm Write Error`, err);
 				msg.channel
 					.send(`Here you go ${msg.author}:`, {
 						files: [
 							{
 								attachment: buffer,
-								name: `${msg.author.id}-explode.jpg`
+								name: `${msg.author.id}-swirl.jpg`
 							}
 						]
 					})
@@ -55,7 +55,7 @@ class Command extends _Command {
 
 		// Handle no args
 		if (!args[0] && !attachment)
-			return util.embed(`:x: | Provide a **user, image attachment or a link** to explode.`);
+			return util.embed(`:x: | Provide a **user, image attachment or a link** to swirl.`);
 		else if (attachment) {
 			// Handle attachment
 			msg.delete({ timeout: 1e3 }).catch((err) => util.error(`Delete Message Error (1)`, err));
