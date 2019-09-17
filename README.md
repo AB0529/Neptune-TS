@@ -28,20 +28,16 @@ Remove 'sample.' from sample.config.ts and fill it in.
 		prefix: '=', // Prefix for your bot
 		owner: [ 'YOUR ID' ] // Array of owner IDs
 	},
+	// Mongo
 	mongo: {
-		// MongoDB
-		user: 'USER', // MongoDB user
+		user: 'USER', // Mongo user
 		password: 'PASS', // Mongo pass
-		db: 'DB' // Mongo DB for that user
+		db: 'DB' // Mongo database for that user
 	},
 	api: {
 		// Neptune API (https://github.com/MoistSenpai/Neptune-API)
 		key: 'KEY', // API key
 		url: 'https://localhost/api' // Url to API
-	},
-	wolke: {
-		// (Not currently used for now) https://weeb.sh/
-		key: 'KEY' // Wolke key
 	}
 }
 ```
