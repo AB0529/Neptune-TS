@@ -15,7 +15,7 @@ class Command extends _Command {
 			category: path.dirname(__filename).split(path.sep).pop(),
 			cooldown: 1e3,
 			aliases: [],
-			locked: true,
+			locked: false,
 			allowDM: true
 		});
 	}

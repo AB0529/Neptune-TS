@@ -60,7 +60,7 @@ const _run = async (msg: Message) => {
 			return nep.util.embed(`<:NepShock:475055910830735372> | You're **not my master**, go away! Shoo, shoo!`);
 		// Check lock
 		if (command.config.locked && !isOwner)
-			return nep.util.embed(`🔒 | \`${command}\` has been **locked to the public**! Try again later!`);
+			return nep.util.embed(`🔒 | \`${command.info.name}\` has been **locked to the public**! Try again later!`);
 		else
 			// Run command
 			command._run(msg, args, nep.util, nep);
