@@ -1,5 +1,5 @@
 import { nep, discord, Util, Servers } from '../index';
-import { Message } from 'discord.js';
+import { Message, Channel } from 'discord.js';
 
 const _run = async (msg: Message) => {
 	// Generate random color
@@ -17,9 +17,20 @@ const _run = async (msg: Message) => {
 	[ nep.config.discord.prefix, `<@${nep.user.id}>`, _Servers.prefix ].forEach(
 		(p) => (msg.content.startsWith(p) ? (nep.prefix = p) : nep.prefix)
 	);
-
 	// Ignore bots
 	if (msg.author.bot) return;
+
+	// Send DM to channel
+	if (!msg.guild)
+		(nep.channels.get('623578516482555924') as any).send({
+			embed: new discord.MessageEmbed()
+				.setDescription(`📨 | Incomming DM from **[${msg.author.tag}]**`)
+				.addField(`Message Content`, nep.util.parseArgs(msg.content ? msg.content : 'No content', 1e3))
+				.setColor(nep.rColor)
+				.setThumbnail(msg.author.displayAvatarURL())
+				.setFooter(`ID: ${msg.author.id}`)
+		});
+
 	// Male sure prefix exists
 	if (!msg.content.toLowerCase().startsWith(nep.prefix)) return;
 
