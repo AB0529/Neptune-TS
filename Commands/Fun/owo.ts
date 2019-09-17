@@ -22,10 +22,8 @@ class Command extends _Command {
 
 	public async _run(msg: Message, args: string[], util: Util, nep: Neptune) {
 		if (!args[0]) return util.embed(`:x: | You nyeed to give something to owoify ^w^ `);
-
-		let mention = msg.mentions.members.filter((m) => m.user.id !== nep.user.id).first().displayName;
 		let resp = await neko.sfw.OwOify({
-			text: args.join(' ').replace(/<@!?[0-9]+>/g, mention)
+			text: args.join(' ')
 		});
 
 		msg.channel.send(resp.owo);
