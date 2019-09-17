@@ -25,7 +25,7 @@ class Command extends _Command {
 
 		msg.channel.send({
 			embed: new discord.MessageEmbed()
-				.setDescription(`**[${user.tag}]**'s Avatar`)
+				.setDescription(`**[${user.tag}](${user.displayAvatarURL()})** Avatar`)
 				.setImage(user.displayAvatarURL({ size: 2048 }))
 				.setColor(nep.rColor)
 		});

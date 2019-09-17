@@ -14,7 +14,7 @@ const _run = async (msg: Message) => {
 			};
 
 	// Handle multiple prefixes
-	[ nep.config.discord.prefix, `<@${nep.user.id}>`, _Servers.prefix ].forEach(
+	[ nep.config.discord.prefix, `<@${nep.user.id}> `, `<@!${nep.user.id}> `, _Servers.prefix ].forEach(
 		(p) => (msg.content.startsWith(p) ? (nep.prefix = p) : nep.prefix)
 	);
 	// Ignore bots
