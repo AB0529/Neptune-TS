@@ -32,7 +32,7 @@ class Command extends _Command {
 			return util.embed(`:x: | I'm not **palying anything** go away!`);
 		// Check if permissions check out
 		if (
-			msg.author !== q[0].video.author &&
+			msg.author.id !== q[0].video.author &&
 			!msg.member.hasPermission('ADMINISTRATOR') &&
 			!util.findRole('NeptuneDJ')
 		)

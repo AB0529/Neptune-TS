@@ -33,7 +33,7 @@ class Command extends _Command {
 
 		// Handle perms
 		if (
-			msg.author !== q[0].video.author &&
+			msg.author.id !== q[0].video.author &&
 			!msg.member.hasPermission('ADMINISTRATOR') &&
 			!util.findRole('NeptuneDJ')
 		)

