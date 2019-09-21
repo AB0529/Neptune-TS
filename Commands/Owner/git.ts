@@ -27,13 +27,13 @@ class Command extends _Command {
 		let output = ``;
 
 		execSync(`git add .`);
-		output += `**[Git Add]** - Files added`;
+		output += `**[Git Add]** - Files added\n`;
 		util.embed(output, m);
 		execSync(`git commit -m "${args.join(' ')}"`);
-		output += `**[Git Commit]** - Commited`;
+		output += `**[Git Commit]** - Commited ${util.parseArgs(args.join(' '), 10)}\n`;
 		util.embed(output, m);
 		execSync(`git push orgin master`);
-		output += `**[Git Push]** - Pushed to orgin/master`;
+		output += `**[Git Push]** - Pushed to orgin/master\n`;
 		execSync(`git push orgin master`);
 		output += `Done.`;
 		util.embed(output, m);
