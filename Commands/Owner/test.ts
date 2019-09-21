@@ -36,7 +36,7 @@ class Command extends _Command {
 			if (link.indexOf('.gif') >= 0)
 				return util.embed(`:x: | The format **GIF is not supported**, choose something else.`);
 
-			gm(bufLink).clip().sharpen(100).autoOrient().toBuffer(`jpg`, (err, buffer) => {
+			gm(bufLink).clip().charcoal(5).autoOrient().toBuffer(`jpg`, (err, buffer) => {
 				if (err) return util.error(`Gm Write Error`, err);
 				msg.channel
 					.send(`Here you go ${msg.author}:`, {
