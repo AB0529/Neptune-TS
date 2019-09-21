@@ -30,7 +30,7 @@ class Command extends _Command {
 		let attachment = msg.attachments.first();
 
 		// Implode image
-		const explode = async (link: string) => {
+		const nega = async (link: string) => {
 			let bufLink: any = await util.toBuffer(link);
 			let m = await util.embed(`*Negatiavzing...*`);
 
@@ -59,16 +59,16 @@ class Command extends _Command {
 		else if (attachment) {
 			// Handle attachment
 			msg.delete({ timeout: 1e3 }).catch((err) => err);
-			return explode(attachment.url);
+			return nega(attachment.url);
 		} else if (checkUrlReg.test(args.join(' '))) {
 			// Handle regex match
 			msg.delete({ timeout: 1e3 }).catch((err) => err);
-			return explode(args.join(' '));
+			return nega(args.join(' '));
 		} else if (!checkUrlReg.test(args.join(' ')) && !attachment) {
 			// Handle no attachment and no regex match
 			let user = await util.getUsers(args.join(' '));
 
-			explode(user.displayAvatarURL({ size: 2048 }).replace('.webp', '.jpg').replace('.gif', '.jpg'));
+			nega(user.displayAvatarURL({ size: 2048 }).replace('.webp', '.jpg').replace('.gif', '.jpg'));
 		} else return util.error(`No match error`, `Idfk what you did but you did it wrong`);
 	}
 }
