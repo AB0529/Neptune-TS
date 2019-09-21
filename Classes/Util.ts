@@ -234,7 +234,7 @@ class Util {
 	// Get user by mention, id, tag, or username
 	public getUsers(args: any): Promise<User> | User {
 		let mention =
-			this.msg.mentions.members.array()[0].user.id == this.nep.user.id
+			this.msg.mentions.members.size > 1
 				? this.msg.mentions.members.array()[1]
 				: this.msg.mentions.members.first();
 		let id = this.msg.guild.members.get(args);
