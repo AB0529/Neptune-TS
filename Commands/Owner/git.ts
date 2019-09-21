@@ -30,7 +30,7 @@ class Command extends _Command {
 		output += `**[Git Add]** - Files added\n`;
 		util.embed(output, m);
 		execSync(`git commit -m "${args.join(' ')}"`);
-		output += `**[Git Commit]** - Commited ${util.parseArgs(args.join(' '), 10)}\n`;
+		output += `**[Git Commit]** - Commited '\`${util.parseArgs(args.join(' '), 10)}\`'\n`;
 		util.embed(output, m);
 		execSync(`git push orgin master`);
 		output += `**[Git Push]** - Pushed to orgin/master\n`;
