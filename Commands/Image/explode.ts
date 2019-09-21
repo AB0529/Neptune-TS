@@ -58,11 +58,11 @@ class Command extends _Command {
 			return util.embed(`:x: | Provide a **user, image attachment or a link** to explode.`);
 		else if (attachment) {
 			// Handle attachment
-			msg.delete({ timeout: 1e3 }).catch((err) => util.error(`Delete Message Error (1)`, err));
+			msg.delete({ timeout: 1e3 }).catch((err) => err);
 			return explode(attachment.url);
 		} else if (checkUrlReg.test(args.join(' '))) {
 			// Handle regex match
-			msg.delete({ timeout: 1e3 }).catch((err) => util.error(`Delete Message Error (2)`, err));
+			msg.delete({ timeout: 1e3 }).catch((err) => err);
 			return explode(args.join(' '));
 		} else if (!checkUrlReg.test(args.join(' ')) && !attachment) {
 			// Handle no attachment and no regex match
