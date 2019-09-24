@@ -59,7 +59,7 @@ interface _Config {
 }
 
 interface _Queues {
-	[index: string]: any;
+	[k: string]: any;
 }
 
 // Export
