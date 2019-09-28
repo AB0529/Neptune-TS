@@ -42,16 +42,16 @@ class Command extends _Command {
 			);
 
 		// If all tests pass, skip the first item
-		return util.embed(`⏩ | \`${q[0].video.title}\` has been skipped by **[${msg.author}]**!`).then(() => {
-			q.shift();
-			util.updateQueue(q);
+		return util.embed(`⏩ | \`${q[0].video.title}\` has been skipped by **[${msg.author}]**!`).then(async () => {
+			await q.shift();
+			await util.updateQueue(q);
 
-			let dispatcher = (vc.player as any).dispatcher;
+			let dispatcher = await (vc.player as any).dispatcher;
 
-			if (dispatcher.paused) dispatcher.resume();
 			if (!dispatcher) return;
+			else if (dispatcher.paused) await dispatcher.resume();
 
-			return dispatcher.end();
+			return await dispatcher.end();
 		});
 	}
 }

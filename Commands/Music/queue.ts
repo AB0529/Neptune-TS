@@ -40,6 +40,13 @@ class Command extends _Command {
 		);
 		let sepQ: _Queues = [];
 		let pagesLength = 10;
+		
+		// Handle no args
+		if (!args[0])
+			return util.embed(
+				`:x: | Dude, those are **Invalid arguments**, try \`${nep.prefix}help ${this.info
+					.name}\` for more info!`
+			);
 
 		switch (args[0].toLowerCase()) {
 			// ---------------------------------------------------------------------------
