@@ -40,6 +40,8 @@ class Command extends _Command {
 		// Create file
 		fs.writeFileSync(`${nep.config.dir}/Commands/${cmd[1]}/${cmd[0]}.ts`, code);
 		util.embed(`✅ | Added command \`${cmd[0]}\` to category \`${cmd[1]}\`\n\n\`\`\`ts\n${userCode}\n\`\`\``);
+		// Load commands
+		nep.loadCommands();
 	}
 }
 

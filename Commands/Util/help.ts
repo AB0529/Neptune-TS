@@ -49,7 +49,7 @@ class Command extends _Command {
 					.addField(`📜 Categories`, `**${categories.join('\n')}**`)
 					.addField(
 						`🤷 Misc.`,
-						`- [Support Server](https://discord.gg/R9ykDC3)\n- [Random Cat](http://random.cat/)\n- [Random YouTube Video](https://ytroulette.com/)\n\n*${catFact.fact}*`
+						`- [Support Server](https://discord.gg/hVjy68M)\n- [Random Cat](http://random.cat/)\n- [Random YouTube Video](https://ytroulette.com/)\n\n*${catFact.fact}*`
 					)
 					.addField(
 						`📄 Notes`,

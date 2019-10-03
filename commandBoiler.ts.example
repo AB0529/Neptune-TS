@@ -8,8 +8,8 @@ class Command extends _Command {
 
         super(nep, {
             name: path.basename(__filename, '.ts'),
-            help: ``,
-            longHelp: ``,
+            help: `HELP`,
+            longHelp: `LONGHELP`,
             usage: [`• ${cmd}`],
             examples: [`• ${cmd}`],
             category: path.dirname(__filename).split(path.sep).pop(),
